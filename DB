@@ -1,0 +1,186 @@
+###(INIT 시작)
+# DB 세팅
+DROP DATABASE IF EXISTS `24_09_07_Exam_ssa`;
+CREATE DATABASE `24_09_07_Exam_ssa`;
+USE `24_09_07_Exam_ssa`;
+
+# 게시글 테이블 생성
+CREATE TABLE article(
+      id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+      regDate DATETIME NOT NULL,
+      updateDate DATETIME NOT NULL,
+      title CHAR(100) NOT NULL,
+      `body` TEXT NOT NULL
+);
+
+
+## 게시글 테스트 데이터 생성
+INSERT INTO article
+SET regDate = NOW(),
+updateDate = NOW(),
+title = '제목1',
+`body` = '내용1';
+
+INSERT INTO article
+SET regDate = NOW(),
+updateDate = NOW(),
+title = '제목2',
+`body` = '내용2';
+
+INSERT INTO article
+SET regDate = NOW(),
+updateDate = NOW(),
+title = '제목3',
+`body` = '내용3';
+
+INSERT INTO article
+SET regDate = NOW(),
+updateDate = NOW(),
+title = '제목4',
+`body` = '내용4';
+
+
+
+# 게시판(board) 테이블 생성
+CREATE TABLE board (
+      id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+      regDate DATETIME NOT NULL,
+      updateDate DATETIME NOT NULL,
+      `code` CHAR(50) NOT NULL UNIQUE COMMENT 'notice(공지사항) free(자유) QnA(질의응답) ...',
+      `name` CHAR(20) NOT NULL UNIQUE COMMENT '게시판 이름',
+      delStatus TINYINT(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '삭제 여부 (0=삭제 전, 1=삭제 후)',
+      delDate DATETIME COMMENT '삭제 날짜'
+);
+
+## 게시판(board) 테스트 데이터 생성
+INSERT INTO board
+SET regDate = NOW(),
+updateDate = NOW(),
+`code` = 'NOTICE',
+`name` = '공지사항';
+
+INSERT INTO board
+SET regDate = NOW(),
+updateDate = NOW(),
+`code` = 'FREE',
+`name` = '자유';
+
+INSERT INTO board
+SET regDate = NOW(),
+updateDate = NOW(),
+`code` = 'QnA',
+`name` = '질의응답';
+
+ALTER TABLE article ADD COLUMN boardId INT(10) UNSIGNED NOT NULL AFTER updateDate;
+
+UPDATE article
+SET boardId = 1
+WHERE id IN (1,2);
+
+UPDATE article
+SET boardId = 2
+WHERE id = 3;
+
+UPDATE article
+SET boardId = 3
+WHERE id = 4;
+
+##faq 테이블 생성
+CREATE TABLE faq (
+    id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    question TEXT NOT NULL,
+    answer TEXT NOT NULL
+);
+
+## 질의응답(faq) 테스트 데이터 생성
+INSERT INTO faq (question, answer) VALUES ('게시글 작성 방법은?', '게시판 상단의 "글쓰기" 버튼을 눌러 제목과 내용을 작성한 후 제출하시면 됩니다.');
+INSERT INTO faq (question, answer) VALUES ('게시글 수정은 어떻게 하나요?', '자신이 작성한 게시글은 수정 버튼을 눌러 수정할 수 있습니다.');
+INSERT INTO faq (question, answer) VALUES ('게시글 삭제는 어떻게 하나요?', '자신이 작성한 게시글은 삭제 버튼을 눌러 삭제할 수 있습니다.');
+INSERT INTO faq (question, answer) VALUES ('검색 기능은 어떻게 사용하나요?', '게시판 상단의 검색 창에 키워드를 입력하여 관련 게시글을 검색할 수 있습니다.');
+INSERT INTO faq (question, answer) VALUES ('비밀번호를 잊어버렸어요.', '로그인 페이지에서 "비밀번호 찾기"를 클릭하고 이메일을 통해 비밀번호를 재설정할 수 있습니다.');
+INSERT INTO faq (question, answer) VALUES ('프로필 사진은 어떻게 변경하나요?', '마이페이지에서 프로필 사진 변경 버튼을 클릭하여 사진을 업로드할 수 있습니다.');
+INSERT INTO faq (question, answer) VALUES ('회원 탈퇴는 어떻게 하나요?', '마이페이지에서 회원 탈퇴 버튼을 클릭하여 탈퇴 요청을 할 수 있습니다.');
+INSERT INTO faq (question, answer) VALUES ('댓글 작성은 어떻게 하나요?', '게시글 하단의 댓글 작성 창에 내용을 입력한 후 제출 버튼을 클릭하면 댓글이 작성됩니다.');
+INSERT INTO faq (question, answer) VALUES ('게시글 조회수는 어떻게 측정되나요?', '게시글을 클릭하여 열람할 때마다 조회수가 1씩 증가합니다.');
+INSERT INTO faq (question, answer) VALUES ('좋아요와 싫어요 기능은 어떻게 사용하나요?', '게시글이나 댓글에 대해 좋아요 또는 싫어요 버튼을 클릭하여 의견을 표현할 수 있습니다.');
+INSERT INTO faq (question, answer) VALUES ('게시글을 신고하고 싶어요.', '게시글 하단의 신고 버튼을 클릭하여 관리자에게 게시글을 신고할 수 있습니다.');
+INSERT INTO faq (question, answer) VALUES ('새로운 게시글이 등록되면 알림을 받을 수 있나요?', '마이페이지에서 알림 설정을 활성화하면 새로운 게시글이 등록될 때 알림을 받을 수 있습니다.');
+INSERT INTO faq (question, answer) VALUES ('비밀글은 어떻게 작성하나요?', '게시글 작성 시 "비밀글" 옵션을 선택하면 본인과 관리자만 해당 글을 열람할 수 있습니다.');
+INSERT INTO faq (question, answer) VALUES ('게시판의 운영 정책은 무엇인가요?', '게시판 운영 정책은 "이용 약관" 페이지에서 확인할 수 있습니다.');
+INSERT INTO faq (question, answer) VALUES ('첨부파일을 추가하려면 어떻게 해야 하나요?', '게시글 작성 시 첨부파일 버튼을 눌러 파일을 업로드할 수 있습니다.');
+INSERT INTO faq (question, answer) VALUES ('로그아웃은 어떻게 하나요?', '화면 우측 상단의 로그아웃 버튼을 클릭하면 로그아웃됩니다.');
+INSERT INTO faq (question, answer) VALUES ('비밀번호는 어떻게 변경하나요?', '마이페이지에서 비밀번호 변경 버튼을 통해 새 비밀번호를 설정할 수 있습니다.');
+INSERT INTO faq (question, answer) VALUES ('다른 사람의 게시글을 공유할 수 있나요?', '게시글 하단의 공유 버튼을 클릭하여 다른 소셜 미디어로 게시글을 공유할 수 있습니다.');
+INSERT INTO faq (question, answer) VALUES ('게시글에 이미지를 첨부할 수 있나요?', '게시글 작성 시 이미지 첨부 버튼을 통해 이미지를 업로드할 수 있습니다.');
+INSERT INTO faq (question, answer) VALUES ('댓글을 수정할 수 있나요?', '자신이 작성한 댓글은 수정 버튼을 눌러 수정할 수 있습니다.');
+
+###(INIT 끝)
+##########################################
+SELECT *
+FROM article
+ORDER BY id DESC;
+
+SELECT * FROM board;
+
+SELECT * FROM faq;
+###############################################################################
+
+
+
+## 게시글 테스트 데이터 대량 생성
+INSERT INTO article
+(
+    regDate, updateDate,boardId, title, `body`
+)
+SELECT NOW(), NOW(), FLOOR(RAND() * 3) + 1, CONCAT('제목__', RAND()), CONCAT('내용__', RAND())
+FROM article;
+
+
+INSERT INTO article
+SET regDate = NOW(),
+updateDate = NOW(),
+title = CONCAT('제목__', RAND()),
+`body` = CONCAT('내용__', RAND());
+
+
+SELECT *
+FROM article
+WHERE boardId = 1
+ORDER BY id DESC;
+
+SELECT *
+FROM article
+WHERE boardId = 2
+ORDER BY id DESC;
+
+SELECT *
+FROM article
+WHERE boardId = 3
+ORDER BY id DESC;
+
+
+
+SELECT *
+FROM article
+WHERE boardId = 1 AND title LIKE '%123%'
+ORDER BY id DESC;
+
+
+SELECT *
+FROM article
+WHERE boardId = 1 AND title LIKE '%123%' OR `body` LIKE '%123%'
+ORDER BY id DESC;
+
+SELECT COUNT(*)
+FROM article AS A
+WHERE A.boardId = 1 
+ORDER BY A.id DESC;
+
+
+
+SELECT hitCount
+FROM article WHERE id = 3
+
+
+
+

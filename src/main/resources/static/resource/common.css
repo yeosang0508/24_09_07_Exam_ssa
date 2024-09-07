@@ -1,0 +1,179 @@
+@charset "UTF-8";
+
+/* 폰트 설정 */
+@font-face {
+	font-family: 'LotteMartDream';
+	font-style: normal;
+	font-weight: 400;
+	src:
+		url('//fastly.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamMedium.woff2')
+		format('woff2'),
+		url('//fastly.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamMedium.woff')
+		format('woff');
+}
+
+@font-face {
+	font-family: 'LotteMartDream';
+	font-style: normal;
+	font-weight: 700;
+	src:
+		url('//fastly.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamBold.woff2')
+		format('woff2'),
+		url('//fastly.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamBold.woff')
+		format('woff');
+}
+
+@font-face {
+	font-family: 'LotteMartDream';
+	font-style: normal;
+	font-weight: 300;
+	src:
+		url('//fastly.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamLight.woff2')
+		format('woff2'),
+		url('//fastly.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamLight.woff')
+		format('woff');
+}
+
+/* 기본 폰트 설정 */
+html, body {
+	font-family: 'LotteMartDream', sans-serif;
+	font-size: 16px;
+	line-height: 1.6;
+	color: #333;
+	margin: 0;
+	padding: 0;
+	background-color: #f9f9f9;
+}
+
+/* 헤더 스타일 */
+header {
+	background-color: #fff;
+	padding: 20px 0;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+header>div {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+header>div>ul {
+	display: flex;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+header>div>ul>li {
+	margin-right: 20px;
+}
+
+header>div>ul>li:last-child {
+	margin-right: 0;
+}
+
+header a {
+	text-decoration: none;
+	color: #333;
+	font-weight: 500;
+	transition: color 0.3s ease;
+}
+
+header a:hover {
+	color: #007BFF;
+}
+
+/* 버튼 스타일 */
+.btn-primary {
+    background-color: #007BFF;
+    color: white;
+    border-radius: 4px;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 123, 255, 0.2);
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    box-shadow: 0 6px 8px rgba(0, 86, 179, 0.2);
+}
+
+.btn-primary:active {
+    background-color: #004494;
+    box-shadow: none;
+}
+
+.btn-primary:disabled {
+    background-color: #e0e0e0;
+    color: #999;
+    cursor: not-allowed;
+}
+/* 다크 테마 */
+html[data-theme="dark"] {
+	background-color: #222;
+	color: #ccc;
+}
+
+html[data-theme="dark"] body {
+	background-color: #222;
+}
+
+html[data-theme="dark"] header {
+	background-color: #333;
+}
+
+html[data-theme="dark"] a {
+	color: #ccc;
+}
+
+html[data-theme="dark"] a:hover {
+	color: #007BFF;
+}
+
+/* Toast UI 에디터 다크 테마 */
+html[data-theme="dark"] .toastui-editor-md-preview {
+	color: white;
+}
+
+html[data-theme="dark"] .toastui-editor-contents * {
+	color: white !important;
+}
+
+/* 중앙 정렬 스타일 */
+.toastui-editor-contents {
+	text-align: center;
+}
+
+/* 모바일 대응 스타일 */
+@media (max-width: 768px) {
+	html, body {
+		font-size: 14px;
+	}
+
+	header>div>ul>li {
+		margin-right: 10px;
+	}
+
+	header a {
+		font-size: 14px;
+	}
+
+	.btn-theme-toggle {
+		font-size: 14px;
+		padding: 3px 7px;
+	}
+}
+
+/* 추가적인 공간 및 섀도우 스타일 */
+.toastui-editor-contents, .table, .pagination {
+	margin-top: 20px;
+	padding: 10px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+	border-radius: 6px;
+	background-color: white;
+}
